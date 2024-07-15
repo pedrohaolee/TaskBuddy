@@ -3,6 +3,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
 import { useQuery } from "@tanstack/react-query";
+import styles from "./Login.module.css";
 
 const Login = (props) => {
   const usingFetch = useFetch();
@@ -39,50 +40,46 @@ const Login = (props) => {
   //   };
 
   return (
-    <div>
+    <div className={styles["login-body"]}>
       {isError && JSON.stringify(error)}
-      <br></br>
-      <div className="row">
-        <div className="col-md-4">
-          <input
-            type="text"
-            className="col-md-4"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-          <div className="col-md-4"></div>
+      <div className={styles.container}>
+        <div className={styles["login-container"]}>
+          <img
+            src="/Logo2.webp"
+            alt="User icon"
+            className={styles["login-logo"]}
+          />
+
+          <div className={styles["form-control"]}>
+            <input
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+          </div>
+
+          <div className={styles["form-control"]}>
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
         </div>
       </div>
 
-      <div className="row">
-        <div className="col-md-4">
-          <input
-            type="password"
-            className="col-md-4"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-          <div className="col-md-4"></div>
-        </div>
-      </div>
+      <button className={styles["form-control"]} onClick={refetch}>
+        Login
+      </button>
 
-      <div className="row">
-        <div className="col-md-4"></div>
-        <button className="col-md-4" onClick={refetch}>
-          Login
-        </button>
-        <div className="col-md-4"></div>
-      </div>
-
-      <div className="row">
-        <div className="col-md-4"></div>
-        <button className="col-md-4" onClick={() => props.setShowLogin(false)}>
-          Register
-        </button>
-        <div className="col-md-4"></div>
-      </div>
+      <button
+        className={styles["form-control"]}
+        onClick={() => props.setShowLogin(false)}
+      >
+        Register
+      </button>
     </div>
   );
 };

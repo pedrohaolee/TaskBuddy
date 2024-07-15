@@ -7,6 +7,8 @@ const Registration = (props) => {
   const [roles, setRoles] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [role, setRole] = useState("");
 
   const { isSuccess, isError, error, isFetching, data } = useQuery({
@@ -20,6 +22,16 @@ const Registration = (props) => {
     },
     onSuccess: () => props.setShowLogin(true),
   });
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordsMatch(e.target.value === confirmPassword);
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    setPasswordsMatch(e.target.value === password);
+  };
 
   return (
     <>
@@ -45,12 +57,26 @@ const Registration = (props) => {
           placeholder="password"
           type="password"
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          onChange={handlePasswordChange}
         ></input>
         <div className="col-md-4"></div>
       </div>
+
+      <div className="row">
+        <div className="col-md-4"></div>
+        <input
+          className="col-md-4"
+          placeholder="confirm password"
+          type="password"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        ></input>
+        <div className="col-md-4"></div>
+      </div>
+
+      {!passwordsMatch && (
+        <div className={styles["error-message"]}>Passwords do not match</div>
+      )}
 
       <div className="row">
         <div className="col-md-4"></div>
@@ -77,7 +103,11 @@ const Registration = (props) => {
 
         <div className="row">
           <div className="col-md-4"></div>
-          <button className="col-md-4" onClick={mutate}>
+          <button
+            className="col-md-4"
+            onClick={mutate}
+            disabled={!passwordsMatch}
+          >
             register
           </button>
           <div className="col-md-4"></div>
