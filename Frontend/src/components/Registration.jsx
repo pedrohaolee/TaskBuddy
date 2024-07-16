@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import styles from "./Registration.module.css";
 
 const Registration = (props) => {
   const usingFetch = useFetch();
