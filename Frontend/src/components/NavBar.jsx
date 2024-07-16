@@ -6,6 +6,11 @@ const NavBar = () => {
   return (
     <header className={styles.navbar}>
       <nav>
+        <img
+          src="/Logo2.webp"
+          alt="TaskBuddy Logo"
+          className={styles["nav-logo"]}
+        />
         <ul>
           <li>
             <NavLink
