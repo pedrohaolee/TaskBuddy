@@ -22,8 +22,8 @@ def del_member(request):
     member.delete()
     return HttpResponse('deleted')
 
-# def home(request):
-#     return HttpResponse('home')
-#
-# def cost(request):
-#     return HttpResponse('cost')
+def home(request):
+    return HttpResponse('home')
+
+def cost(request):
+    return HttpResponse('cost')
