@@ -37,10 +37,10 @@ const Registration = (props) => {
   };
 
   return (
-    <>
+    <div className={styles["signup-body"]}>
       <br />
-      <div className="row">
-        <div className="col-md-4"></div>
+      <div className={styles["signup-container"]}>
+        <div className={styles["form-control"]}></div>
         <input
           className="col-md-4"
           placeholder="email"
@@ -53,8 +53,8 @@ const Registration = (props) => {
         <div className="col-md-4"></div>
       </div>
 
-      <div className="row">
-        <div className="col-md-4"></div>
+      <div className={styles["signup-container"]}>
+        <div className={styles["form-control"]}></div>
         <input
           className="col-md-4"
           placeholder="password"
@@ -65,8 +65,8 @@ const Registration = (props) => {
         <div className="col-md-4"></div>
       </div>
 
-      <div className="row">
-        <div className="col-md-4"></div>
+      <div className={styles["signup-container"]}>
+        <div className={styles["form-control"]}></div>
         <input
           className="col-md-4"
           placeholder="confirm password"
@@ -107,7 +107,7 @@ const Registration = (props) => {
         <div className="row">
           <div className="col-md-4"></div>
           <button
-            className="col-md-4"
+            className={styles["register-button"]}
             onClick={mutate}
             disabled={!passwordsMatch}
           >
@@ -118,13 +118,16 @@ const Registration = (props) => {
 
         <div className="row">
           <div className="col-md-4"></div>
-          <button className="col-md-4" onClick={() => props.setShowLogin(true)}>
+          <button
+            className={styles["signup-footer"]}
+            onClick={() => props.setShowLogin(true)}
+          >
             go to login screen
           </button>
           <div className="col-md-4"></div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

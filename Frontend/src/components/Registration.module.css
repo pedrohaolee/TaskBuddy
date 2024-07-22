@@ -1,7 +1,7 @@
 .signup-body {
   margin: 0;
   padding: 0;
-  background-image: url("https://en.idei.club/uploads/posts/2023-03/1679145394_en-idei-club-p-blue-office-vkontakte-9.jpg");
+  background-image: url("../../public/registration.jpg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -48,6 +48,15 @@ input[type="email"] {
   font-size: 16px;
 }
 
+select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
 button[type="submit"] {
   width: 100%;
   padding: 10px;
@@ -76,4 +85,6 @@ button[disabled] {
 .error-message {
   color: red;
   margin-bottom: 10px;
+  font-size: 14px;
+  text-align: left;
 }

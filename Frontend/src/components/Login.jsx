@@ -56,6 +56,7 @@ const Login = (props) => {
               placeholder="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className={styles["email-input"]}
             ></input>
           </div>
 
@@ -65,17 +66,18 @@ const Login = (props) => {
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className={styles["password-input"]}
             ></input>
           </div>
         </div>
       </div>
 
-      <button className={styles["form-control"]} onClick={refetch}>
+      <button className={styles["login-button"]} onClick={refetch}>
         Login
       </button>
 
       <button
-        className={styles["form-control"]}
+        className={styles["register-button"]}
         onClick={() => props.setShowLogin(false)}
       >
         Register

@@ -48,8 +48,11 @@ const login = async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(401).json({ status: "error", msg: "not authorized" });
     }
-
     const user = result.rows[0];
+    if (!user.status) {
+      return res.status(403).json({ status: "error", msg: "account disabled" });
+    }
+
     const match = await bcrypt.compare(password, user.hash);
     if (!match) {
       return res.status(401).json({ status: "error", msg: "login failed" });
