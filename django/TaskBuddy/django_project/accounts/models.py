@@ -53,4 +53,9 @@ class Accounts(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+class Role(models.Model):
+    role = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.role

@@ -1,13 +1,32 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+
+// const connectDB = async () => {
+//   try {
+//     await mongoose.connect(process.env.DATABASE);
+//     console.log("DB connected");
+//   } catch (error) {
+//     console.error(error.message);
+//     process.exit(1);
+//   }
+// };
+
+// module.exports = connectDB;
+
+const { Pool } = require("pg");
+require("dotenv").config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE,
+});
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.DATABASE);
+    await pool.connect();
     console.log("DB connected");
   } catch (error) {
-    console.error(error.message);
+    console.error("Unable to connect to the database:", error.message);
     process.exit(1);
   }
 };
 
-module.exports = connectDB;
+module.exports = { pool, connectDB };

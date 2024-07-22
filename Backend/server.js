@@ -8,7 +8,7 @@ const books = require("./src/routers/books");
 const roles = require("./src/routers/roles");
 const auth = require("./src/routers/auth");
 
-const connectDB = require("./src/db/db");
+const { pool, connectDB } = require("./src/db/db");
 const { connect } = require("mongoose");
 
 const limiter = rateLimit({

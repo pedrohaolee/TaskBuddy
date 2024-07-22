@@ -6,7 +6,7 @@ from .models import Task
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class JwtDetails(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get(self,request):
         response = JWTAuthentication().authenticate(request)
@@ -37,7 +37,7 @@ class JwtDetails(APIView):
 #
 
 class TaskList(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     def get(self,request):
         tasks = Task.objects.all()
         serializer = TaskSerializer(tasks,many=True)

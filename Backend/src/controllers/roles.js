@@ -1,12 +1,12 @@
-const Roles = require("../models/Roles");
+const { pool } = require("../db/db");
 
 const getAllRoles = async (req, res) => {
   try {
-    const roles = await Roles.find();
-    res.json(roles.map((item) => item.role));
+    const result = await pool.query("SELECT role FROM roles");
+    res.json(result.rows.map((row) => row.role));
   } catch (error) {
-    console.error(error.message);
-    res.json({ status: "error", msg: "cannot get roles" });
+    console.error("Error executing query:", error.message);
+    res.status(500).json({ status: "error", msg: "cannot get roles" });
   }
 };
 

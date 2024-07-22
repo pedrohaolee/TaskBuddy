@@ -19,7 +19,7 @@ const NavBar = () => {
                 return navData.isActive ? styles.active : "";
               }}
             >
-              Intro
+              Create Task
             </NavLink>
           </li>
           <li>
@@ -27,7 +27,7 @@ const NavBar = () => {
               to="/topmemes"
               className={(navData) => (navData.isActive ? styles.active : "")}
             >
-              TopMemes
+              Task List
             </NavLink>
           </li>
           <li>
@@ -35,7 +35,7 @@ const NavBar = () => {
               to="/favorite"
               className={(navData) => (navData.isActive ? styles.active : "")}
             >
-              Favorite
+              Log-out
             </NavLink>
           </li>
         </ul>

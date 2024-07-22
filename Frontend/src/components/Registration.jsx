@@ -17,9 +17,11 @@ const Registration = (props) => {
     queryFn: async () => await usingFetch("/roles"),
   });
 
+  console.log(data);
+
   const { mutate } = useMutation({
     mutationFn: async () => {
-      await usingFetch("/auth/register", "PUT", { email, password, role });
+      await usingFetch("/auth/register/", "PUT", { email, password, role });
     },
     onSuccess: () => props.setShowLogin(true),
   });
