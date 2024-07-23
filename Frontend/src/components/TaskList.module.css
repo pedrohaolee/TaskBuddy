@@ -1,0 +1,81 @@
+.task-list-container {
+  padding: 20px;
+}
+
+.view-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.view-options button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.view-options .active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.group-title {
+  font-size: 1.2em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.header-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 3fr 1fr;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 3fr 1fr;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.task-info span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  padding: 5px 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+  text-align: center;
+}

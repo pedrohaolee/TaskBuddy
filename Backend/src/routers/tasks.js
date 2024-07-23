@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addNewTask } = require("../controllers/tasks");
+const { addNewTask, getAllTasks } = require("../controllers/tasks");
 
 const {
   validateIdInBody,
@@ -16,6 +16,7 @@ const { authAdmin, auth } = require("../middleware/auth");
 // router.post("/books", auth, validateIdInBody, checkErrors, getBookById);
 // router.put("/books", authAdmin, validateAddBookData, checkErrors, addNewBook);
 router.put("/tasks", addNewTask);
+router.get("/tasks", getAllTasks);
 // router.delete(
 //   "/books/:id",
 //   authAdmin,

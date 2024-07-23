@@ -14,7 +14,7 @@ const NavBar = () => {
         <ul>
           <li>
             <NavLink
-              to="/intro"
+              to="/createtask"
               className={(navData) => {
                 return navData.isActive ? styles.active : "";
               }}
@@ -24,7 +24,7 @@ const NavBar = () => {
           </li>
           <li>
             <NavLink
-              to="/topmemes"
+              to="/tasklist"
               className={(navData) => (navData.isActive ? styles.active : "")}
             >
               Task List
