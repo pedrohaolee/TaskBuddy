@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const books = require("./src/routers/books");
 const roles = require("./src/routers/roles");
 const auth = require("./src/routers/auth");
+const { createTaskTable } = require("./src/models/Tasks");
 
 const { pool, connectDB } = require("./src/db/db");
 const { connect } = require("mongoose");
@@ -18,7 +19,9 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-connectDB();
+connectDB().then(() => {
+  createTaskTable();
+});
 
 const app = express();
 
