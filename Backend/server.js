@@ -4,7 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const books = require("./src/routers/books");
+// const books = require("./src/routers/books");
+const tasks = require("./src/routers/tasks");
 const roles = require("./src/routers/roles");
 const auth = require("./src/routers/auth");
 const { createTaskTable } = require("./src/models/Tasks");
@@ -31,7 +32,7 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api", books);
+app.use("/api", tasks);
 app.use("/roles", roles);
 app.use("/auth", auth);
 

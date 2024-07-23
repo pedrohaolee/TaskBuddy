@@ -9,7 +9,10 @@ const createTaskTable = async () => {
       priority VARCHAR(255) NOT NULL,
       description TEXT NOT NULL,
       due_date DATE NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      username VARCHAR(255) NOT NULL REFERENCES users(email) ON DELETE CASCADE,
+      completed BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
 

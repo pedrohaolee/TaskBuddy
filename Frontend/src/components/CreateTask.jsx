@@ -1,22 +1,65 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./CreateTask.module.css";
+import UserContext from "../context/user";
 
 const CreateTask = () => {
+  const userCtx = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
+  const [completed, setCompleted] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your create task logic here
-    console.log({ title, category, priority, description, dueDate });
+    setError("");
+    setSuccess("");
+
+    const formattedDueDate = new Date(dueDate).toISOString().split("T")[0];
+
+    const taskData = {
+      title,
+      category,
+      priority,
+      description,
+      due_date: formattedDueDate,
+      username: userCtx.user,
+      completed,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5002/api/tasks", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskData),
+      });
+
+      if (response.ok) {
+        setSuccess("Task created successfully");
+        setTitle("");
+        setCategory("");
+        setPriority("");
+        setDescription("");
+        setDueDate("");
+        setCompleted(false);
+      } else {
+        const errorData = await response.json();
+        setError(errorData.msg || "Failed to create task");
+      }
+    } catch (err) {
+      setError("Error connecting to the server");
+    }
   };
 
   return (
     <div className={styles["create-task-container"]}>
       <h2>Create Task</h2>
+
       <form onSubmit={handleSubmit}>
         <div className={styles["form-control"]}>
           <label>Title</label>
@@ -78,6 +121,8 @@ const CreateTask = () => {
           Submit
         </button>
       </form>
+      {error && <div className={styles["error-message"]}>{error}</div>}
+      {success && <div className={styles["success-message"]}>{success}</div>}
     </div>
   );
 };

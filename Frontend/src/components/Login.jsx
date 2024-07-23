@@ -10,6 +10,7 @@ const Login = (props) => {
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const { setUser } = useContext(UserContext);
 
   const { isError, error, data, refetch } = useQuery({
     queryKey: ["login"],
@@ -28,6 +29,7 @@ const Login = (props) => {
       userCtx.setAccessToken(data.access);
       const decoded = jwtDecode(data.access);
       userCtx.setRole(decoded.role);
+      userCtx.setUser(email);
     }
   }, [data]);
 

@@ -14,11 +14,12 @@ function App() {
   const [accessToken, setAccessToken] = useState("");
   const [role, setRole] = useState("");
   const [showLogin, setShowLogin] = useState(true);
+  const [user, setUser] = useState("");
 
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider
-        value={{ accessToken, setAccessToken, role, setRole }}
+        value={{ accessToken, setAccessToken, role, setRole, user, setUser }}
       >
         <BrowserRouter>
           {!accessToken && showLogin && <Login setShowLogin={setShowLogin} />}
