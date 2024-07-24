@@ -262,6 +262,27 @@ const dashboardTasks = async (req, res) => {
   }
 };
 
+const getAllTasksAdmin = async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM tasks");
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching tasks:", error.message);
+    res.status(500).json({ status: "error", msg: "Error fetching tasks" });
+  }
+};
+
+const deleteTaskAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query("DELETE FROM tasks WHERE id = $1", [id]);
+    res.json({ status: "success", msg: "Task deleted" });
+  } catch (error) {
+    console.error("Error deleting task:", error.message);
+    res.status(500).json({ status: "error", msg: "Error deleting task" });
+  }
+};
+
 // const deleteOneBookById = async (req, res) => {
 //   try {
 //     await BooksModel.findByIdAndDelete(req.params.id);
@@ -298,4 +319,6 @@ module.exports = {
   getPremiumFreeUsers,
   updateUserStatus,
   dashboardTasks,
+  getAllTasksAdmin,
+  deleteTaskAdmin,
 };

@@ -7,6 +7,8 @@ const {
   getPremiumFreeUsers,
   updateUserStatus,
   dashboardTasks,
+  getAllTasksAdmin,
+  deleteTaskAdmin,
 } = require("../controllers/tasks");
 
 const {
@@ -29,6 +31,8 @@ router.patch("/tasks/:id", updateTask);
 router.get("/users", getPremiumFreeUsers);
 router.patch("/users/:email/status", updateUserStatus);
 router.post("/dashboard", dashboardTasks);
+router.get("/admin/tasks", getAllTasksAdmin);
+router.delete("/admin/tasks/:id", deleteTaskAdmin);
 // router.delete(
 //   "/books/:id",
 //   authAdmin,

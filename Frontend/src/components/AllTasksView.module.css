@@ -1,0 +1,32 @@
+.allTasks {
+  padding: 20px;
+}
+
+.task {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.task h4 {
+  margin: 0 0 5px;
+}
+
+.task p {
+  margin: 2px 0;
+}
+
+.deleteButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.deleteButton:hover {
+  background-color: darkred;
+}

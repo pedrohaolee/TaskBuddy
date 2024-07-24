@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import MainPage from "./components/MainPage";
 import AdminView from "./components/AdminView";
+import MainPageAdmin from "./components/MainPageAdmin";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,7 @@ function App() {
           )}
           {user &&
             accessToken &&
-            (role === "admin" ? <AdminView /> : <MainPage />)}
+            (role === "admin" ? <MainPageAdmin /> : <MainPage />)}
         </BrowserRouter>
       </UserContext.Provider>
     </QueryClientProvider>
