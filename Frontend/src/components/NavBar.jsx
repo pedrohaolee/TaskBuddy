@@ -52,6 +52,16 @@ const NavBar = () => {
               </NavLink>
             </li>
           )}
+          {userCtx.user && userCtx.role === "premium user" && (
+            <li>
+              <NavLink
+                to="/dashboard"
+                className={(navData) => (navData.isActive ? styles.active : "")}
+              >
+                Dashboard
+              </NavLink>
+            </li>
+          )}
           <li>
             <div className={styles.navbarItem}>
               <button onClick={handleLogout} className={styles.logoutButton}>

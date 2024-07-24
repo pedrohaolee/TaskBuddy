@@ -205,6 +205,30 @@ const updateUserStatus = async (req, res) => {
       .json({ status: "error", msg: "Failed to update user status" });
   }
 };
+
+const dashboardTasks = async (req, res) => {
+  try {
+    const email = req.body.email;
+    console.log("Body:", req.body);
+    console.log("Email:", email);
+    const result = await pool.query(
+      `SELECT 
+          COUNT(*) FILTER (WHERE completed = false) AS pending_tasks,
+          COUNT(*) FILTER (WHERE completed = true) AS completed_tasks,
+          COUNT(*) FILTER (WHERE due_date >= NOW()) AS upcoming_tasks
+        FROM tasks
+        WHERE username = $1`,
+      [email]
+    );
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error.message);
+    res
+      .status(500)
+      .json({ status: "error", msg: "Error fetching dashboard data" });
+  }
+};
+
 // const deleteOneBookById = async (req, res) => {
 //   try {
 //     await BooksModel.findByIdAndDelete(req.params.id);
@@ -240,4 +264,5 @@ module.exports = {
   updateTask,
   getPremiumFreeUsers,
   updateUserStatus,
+  dashboardTasks,
 };

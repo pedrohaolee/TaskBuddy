@@ -6,6 +6,7 @@ import Intro from "../pages/Intro";
 import CreateTask from "./CreateTask";
 import TaskList from "./TaskList";
 import CalendarView from "./CalendarView";
+import DashboardView from "./DashboardView";
 
 function MainPage() {
   return (
@@ -18,6 +19,7 @@ function MainPage() {
           <Route path="createtask" element={<CreateTask />}></Route>
           <Route path="tasklist" element={<TaskList />}></Route>
           <Route path="calendar" element={<CalendarView />}></Route>
+          <Route path="dashboard" element={<DashboardView />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </Suspense>

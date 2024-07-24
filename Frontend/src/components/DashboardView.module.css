@@ -1,0 +1,19 @@
+.dashboard {
+  padding: 20px;
+}
+
+.stat {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.stat h3 {
+  margin: 0;
+}
+
+.stat p {
+  font-size: 1.5em;
+  margin: 0;
+}
