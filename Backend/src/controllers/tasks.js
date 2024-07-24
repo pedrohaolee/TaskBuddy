@@ -150,6 +150,61 @@ const addNewTask = async (req, res) => {
   }
 };
 
+const updateTask = async (req, res) => {
+  const { id } = req.params;
+  const { title, category, priority, description, due_date } = req.body;
+
+  try {
+    const result = await pool.query(
+      "UPDATE tasks SET title = COALESCE($1, title), category = COALESCE($2, category), priority = COALESCE($3, priority), description = COALESCE($4, description), due_date = COALESCE($5, due_date), updated_at = NOW() WHERE id = $6 RETURNING *",
+      [title, category, priority, description, due_date, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ status: "error", msg: "Task not found" });
+    }
+
+    res.json({ status: "success", task: result.rows[0] });
+  } catch (error) {
+    console.error("Error updating task:", error);
+    res.status(500).json({ status: "error", msg: "Failed to update task" });
+  }
+};
+
+const getPremiumFreeUsers = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT email, role, created_at, status FROM users"
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ status: "error", msg: "Failed to fetch users" });
+  }
+};
+
+const updateUserStatus = async (req, res) => {
+  const { email } = req.params;
+  const { status } = req.body;
+
+  try {
+    const result = await pool.query(
+      "UPDATE users SET status = $1 WHERE email = $2 RETURNING *",
+      [status, email]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ status: "error", msg: "User not found" });
+    }
+
+    res.json({ status: "success", user: result.rows[0] });
+  } catch (error) {
+    console.error("Error updating user status:", error);
+    res
+      .status(500)
+      .json({ status: "error", msg: "Failed to update user status" });
+  }
+};
 // const deleteOneBookById = async (req, res) => {
 //   try {
 //     await BooksModel.findByIdAndDelete(req.params.id);
@@ -182,4 +237,7 @@ const addNewTask = async (req, res) => {
 module.exports = {
   addNewTask,
   getAllTasks,
+  updateTask,
+  getPremiumFreeUsers,
+  updateUserStatus,
 };

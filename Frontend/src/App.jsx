@@ -7,6 +7,7 @@ import UserContext from "./context/user";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import MainPage from "./components/MainPage";
+import AdminView from "./components/AdminView";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ function App() {
           {!accessToken && !showLogin && (
             <Registration setShowLogin={setShowLogin}></Registration>
           )}
-          {accessToken && <MainPage />}
+          {accessToken && (role === "admin" ? <AdminView /> : <MainPage />)}
         </BrowserRouter>
       </UserContext.Provider>
     </QueryClientProvider>

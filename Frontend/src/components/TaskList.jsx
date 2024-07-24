@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../context/user";
+import Task from "./Task";
+import UpdateModal from "./UpdateModal";
 import styles from "./TaskList.module.css";
 
 const TaskList = () => {
   const { user } = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
-  const [viewBy, setViewBy] = useState("priority"); // 'priority' or 'category'
+  const [viewBy, setViewBy] = useState("priority");
   const [selectedTask, setSelectedTask] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -33,17 +35,17 @@ const TaskList = () => {
     setShowModal(true);
   };
 
-  const truncateDescription = (description) => {
-    const words = description.split(" ");
-    return words.length > 10
-      ? words.slice(0, 10).join(" ") + "..."
-      : description;
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedTask(null);
+    fetchTasks();
   };
 
   const groupedTasks = tasks.reduce((acc, task) => {
     const key = viewBy === "priority" ? task.priority : task.category;
     if (!acc[key]) acc[key] = [];
     acc[key].push(task);
+    // console.log(acc);
     return acc;
   }, {});
 
@@ -74,36 +76,18 @@ const TaskList = () => {
             <span>Actions</span>
           </div>
           {groupedTasks[group].map((task) => (
-            <div key={task.id} className={styles["task-item"]}>
-              <div className={styles["task-info"]}>
-                <span>{task.title}</span>
-                <span>{new Date(task.due_date).toLocaleDateString()}</span>
-                <span>{truncateDescription(task.description)}</span>
-                <div className={styles["task-actions"]}>
-                  <button onClick={() => handleViewDetail(task)}>
-                    View detail
-                  </button>
-                  <button onClick={() => handleUpdate(task)}>Update</button>
-                </div>
-              </div>
-            </div>
+            <Task
+              key={task.id}
+              task={task}
+              onDetail={handleViewDetail}
+              onUpdate={handleUpdate}
+            />
           ))}
         </div>
       ))}
 
       {showModal && selectedTask && (
-        <div className={styles["modal"]}>
-          <div className={styles["modal-content"]}>
-            <h3>{selectedTask.title}</h3>
-            <p>Category: {selectedTask.category}</p>
-            <p>Priority: {selectedTask.priority}</p>
-            <p>
-              Due Date: {new Date(selectedTask.due_date).toLocaleDateString()}
-            </p>
-            <p>Description: {selectedTask.description}</p>
-            <button onClick={() => setShowModal(false)}>Close</button>
-          </div>
-        </div>
+        <UpdateModal task={selectedTask} closeModal={closeModal} />
       )}
     </div>
   );

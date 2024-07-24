@@ -1,110 +1,110 @@
-import React, { useContext, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
 import styles from "./Modal.module.css";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import useFetch from "../hooks/useFetch";
-import UserContext from "../context/user";
 
-const OverLay = (props) => {
-  const userCtx = useContext(UserContext);
-  const usingFetch = useFetch();
-  const queryClient = useQueryClient();
-  const [title, setTitle] = useState(props.title);
-  const [author, setAuthor] = useState(props.author);
-  const [year, setYear] = useState(props.yearPublished);
+const UpdateTaskModal = ({ task, closeModal }) => {
+  const [title, setTitle] = useState(task.title);
+  const [category, setCategory] = useState(task.category);
+  const [priority, setPriority] = useState(task.priority);
+  const [description, setDescription] = useState(task.description);
+  const [dueDate, setDueDate] = useState(task.due_date);
 
-  const { mutate: callUpdateBook } = useMutation({
-    mutationFn: async () =>
-      await usingFetch(
-        "/api/books/" + props.id,
-        "PATCH",
+  useEffect(() => {
+    const formattedDate = new Date(task.due_date).toISOString().split("T")[0];
+    setDueDate(formattedDate);
+  }, [task.due_date]);
+
+  const handleUpdate = async () => {
+    const updatedTask = {
+      title,
+      category,
+      priority,
+      description,
+      due_date: dueDate,
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:5002/api/tasks/${task.id}`,
         {
-          title,
-          author,
-          year,
-        },
-        userCtx.accessToken
-      ),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["books"]);
-      props.setShowUpdateModal(false);
-    },
-  });
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedTask),
+        }
+      );
+
+      if (response.ok) {
+        closeModal();
+      } else {
+        console.error("Failed to update task");
+      }
+    } catch (error) {
+      console.error("Error updating task:", error);
+    }
+  };
 
   return (
-    <div className={styles.backdrop}>
-      <div className={styles.modal}>
-        <br />
-        <br />
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-3">Title</div>
-          <input
-            type="text"
-            className="col-md-3"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-          <div className="col-md-3"></div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-3">Author</div>
-          <input
-            type="text"
-            className="col-md-3"
-            value={author}
-            onChange={(event) => setAuthor(event.target.value)}
-          />
-          <div className="col-md-3"></div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-3">Year Published</div>
-          <input
-            type="text"
-            className="col-md-3"
-            value={year}
-            onChange={(event) => setYear(event.target.value)}
-          />
-          <div className="col-md-3"></div>
-        </div>
-        <br />
-        <div className="row">
-          <div className="col-md-3"></div>
-          <button className="col-md-3" onClick={callUpdateBook}>
-            update
-          </button>
-          <button
-            className="col-md-3"
-            onClick={() => props.setShowUpdateModal(false)}
-          >
-            cancel
-          </button>
-          <div className="col-md-3"></div>
-        </div>
+    <div className={styles["modal"]}>
+      <div className={styles["modal-content"]}>
+        <h3>Update Task</h3>
+        <form>
+          <div className={styles["form-control"]}>
+            <label>Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className={styles["form-control"]}>
+            <label>Category</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            >
+              <option value="work">Work</option>
+              <option value="family">Family</option>
+              <option value="misc">Misc</option>
+            </select>
+          </div>
+          <div className={styles["form-control"]}>
+            <label>Priority</label>
+            <select
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+              required
+            >
+              <option value="urgent">Urgent</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div className={styles["form-control"]}>
+            <label>Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            ></textarea>
+          </div>
+          <div className={styles["form-control"]}>
+            <label>Due Date</label>
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              required
+            />
+          </div>
+        </form>
+        <button onClick={handleUpdate}>Update</button>
+        <button onClick={closeModal}>Close</button>
       </div>
     </div>
   );
 };
 
-const UpdateModal = (props) => {
-  return (
-    <>
-      {ReactDOM.createPortal(
-        <OverLay
-          id={props.id}
-          title={props.title}
-          author={props.author}
-          yearPublished={props.yearPublished}
-          setShowUpdateModal={props.setShowUpdateModal}
-        />,
-        document.querySelector("#modal-root")
-      )}
-    </>
-  );
-};
-
-export default UpdateModal;
+export default UpdateTaskModal;

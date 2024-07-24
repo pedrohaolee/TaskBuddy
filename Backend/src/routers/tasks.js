@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { addNewTask, getAllTasks } = require("../controllers/tasks");
+const {
+  addNewTask,
+  getAllTasks,
+  updateTask,
+  getPremiumFreeUsers,
+  updateUserStatus,
+} = require("../controllers/tasks");
 
 const {
   validateIdInBody,
@@ -10,6 +16,7 @@ const {
 } = require("../validators/books");
 const checkErrors = require("../validators/checkErrors");
 const { authAdmin, auth } = require("../middleware/auth");
+const { getAllUsers } = require("../controllers/auth");
 
 // router.get("/books/seed", authAdmin, seedBooks);
 // router.get("/books", auth, getAllBooks);
@@ -17,6 +24,9 @@ const { authAdmin, auth } = require("../middleware/auth");
 // router.put("/books", authAdmin, validateAddBookData, checkErrors, addNewBook);
 router.put("/tasks", addNewTask);
 router.get("/tasks", getAllTasks);
+router.patch("/tasks/:id", updateTask);
+router.get("/users", getPremiumFreeUsers);
+router.patch("/users/:email/status", updateUserStatus);
 // router.delete(
 //   "/books/:id",
 //   authAdmin,
