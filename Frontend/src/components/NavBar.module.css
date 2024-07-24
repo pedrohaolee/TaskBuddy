@@ -58,3 +58,15 @@
   width: 80%;
   margin: 1rem 0;
 }
+
+.logoutButton {
+  background-color: darkgray;
+  color: red;
+  border: 3px solid red;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: red;
+}

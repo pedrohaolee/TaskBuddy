@@ -20,14 +20,25 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <UserContext.Provider
-        value={{ accessToken, setAccessToken, role, setRole, user, setUser }}
+        value={{
+          accessToken,
+          setAccessToken,
+          role,
+          setRole,
+          user,
+          setUser,
+          showLogin,
+          setShowLogin,
+        }}
       >
         <BrowserRouter>
           {!accessToken && showLogin && <Login setShowLogin={setShowLogin} />}
           {!accessToken && !showLogin && (
             <Registration setShowLogin={setShowLogin}></Registration>
           )}
-          {accessToken && (role === "admin" ? <AdminView /> : <MainPage />)}
+          {user &&
+            accessToken &&
+            (role === "admin" ? <AdminView /> : <MainPage />)}
         </BrowserRouter>
       </UserContext.Provider>
     </QueryClientProvider>

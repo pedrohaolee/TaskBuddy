@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./NavBar.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import UserContext from "../context/user";
+import Login from "./Login";
 
 const NavBar = () => {
+  const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    userCtx.setUser(null);
+    userCtx.setAccessToken(null);
+    userCtx.setShowLogin(true);
+    navigate("/");
+  };
+
   return (
     <header className={styles.navbar}>
       <nav>
@@ -30,13 +42,22 @@ const NavBar = () => {
               Task List
             </NavLink>
           </li>
+          {userCtx.user && userCtx.role === "premium user" && (
+            <li>
+              <NavLink
+                to="/calendar"
+                className={(navData) => (navData.isActive ? styles.active : "")}
+              >
+                Calendar
+              </NavLink>
+            </li>
+          )}
           <li>
-            <NavLink
-              to="/favorite"
-              className={(navData) => (navData.isActive ? styles.active : "")}
-            >
-              Log-out
-            </NavLink>
+            <div className={styles.navbarItem}>
+              <button onClick={handleLogout} className={styles.logoutButton}>
+                Log-out
+              </button>
+            </div>
           </li>
         </ul>
       </nav>
