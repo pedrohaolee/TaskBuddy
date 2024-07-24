@@ -26,7 +26,11 @@ const AllTasksView = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this task?")) {
+    if (
+      window.confirm(
+        "TaskBuddy Alert: \n\n Are you sure you want to delete this task?"
+      )
+    ) {
       try {
         const response = await fetch(
           `http://localhost:5002/api/admin/tasks/${id}`,
@@ -50,13 +54,20 @@ const AllTasksView = () => {
     }
   };
 
+  const truncateDescription = (description) => {
+    const words = description.split(" ");
+    return words.length > 10
+      ? words.slice(0, 10).join(" ") + "..."
+      : description;
+  };
+
   return (
     <div className={styles.allTasks}>
       <h2>All Tasks</h2>
       {tasks.map((task) => (
         <div key={task.id} className={styles.task}>
           <h4>{task.title}</h4>
-          <p>{task.description}</p>
+          <p>{truncateDescription(task.description)}</p>
           <p>Due: {new Date(task.due_date).toLocaleDateString()}</p>
           <p>Priority: {task.priority}</p>
           <p>Category: {task.category}</p>
