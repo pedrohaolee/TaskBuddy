@@ -15,7 +15,10 @@ function MainPage() {
 
       <Suspense fallback={<p>Loading...</p>}>
         <Routes>
-          <Route path="/" element={<Navigate replace to="/intro" />}></Route>
+          <Route
+            path="/"
+            element={<Navigate replace to="/createtask" />}
+          ></Route>
           <Route path="createtask" element={<CreateTask />}></Route>
           <Route path="tasklist" element={<TaskList />}></Route>
           <Route path="calendar" element={<CalendarView />}></Route>
