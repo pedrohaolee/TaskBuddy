@@ -28,20 +28,33 @@ const DashboardView = () => {
     }
   };
 
+  const renderTasks = (tasks) => {
+    return tasks.map((task) => (
+      <div key={task.id} className={styles.task}>
+        <br></br>
+        <h4>{task.title}</h4>
+        <p>Due: {new Date(task.due_date).toLocaleDateString()}</p>
+        <p>Priority: {task.priority}</p>
+        <p>Category: {task.category}</p>
+        <br></br>
+      </div>
+    ));
+  };
+
   return (
     <div className={styles.dashboard}>
       <h2>Dashboard</h2>
       <div className={styles.stat}>
-        <h3>Pending Tasks</h3>
-        <p>{stats.pending_tasks}</p>
+        <h3>Pending Tasks ({stats.pending_tasks_count})</h3>
+        <ul>{stats.pending_tasks && renderTasks(stats.pending_tasks)}</ul>
       </div>
       <div className={styles.stat}>
-        <h3>Completed Tasks</h3>
-        <p>{stats.completed_tasks}</p>
+        <h3>Completed Tasks ({stats.completed_tasks_count})</h3>
+        <ul>{stats.completed_tasks && renderTasks(stats.completed_tasks)}</ul>
       </div>
       <div className={styles.stat}>
-        <h3>Upcoming Tasks</h3>
-        <p>{stats.upcoming_tasks}</p>
+        <h3>Upcoming Tasks ({stats.upcoming_tasks_count})</h3>
+        <ul>{stats.upcoming_tasks && renderTasks(stats.upcoming_tasks)}</ul>
       </div>
     </div>
   );

@@ -213,9 +213,42 @@ const dashboardTasks = async (req, res) => {
     console.log("Email:", email);
     const result = await pool.query(
       `SELECT 
-          COUNT(*) FILTER (WHERE completed = false) AS pending_tasks,
-          COUNT(*) FILTER (WHERE completed = true) AS completed_tasks,
-          COUNT(*) FILTER (WHERE due_date >= NOW()) AS upcoming_tasks
+          COUNT(*) FILTER (WHERE completed = false) AS pending_tasks_count,
+          COUNT(*) FILTER (WHERE completed = true) AS completed_tasks_count,
+          COUNT(*) FILTER (WHERE due_date >= NOW()) AS upcoming_tasks_count,
+          ARRAY_AGG(
+            json_build_object(
+              'id', id,
+              'title', title,
+              'description', description,
+              'due_date', due_date,
+              'priority', priority,
+              'category', category,
+              'completed', completed
+            )
+          ) FILTER (WHERE completed = false) AS pending_tasks,
+          ARRAY_AGG(
+            json_build_object(
+              'id', id,
+              'title', title,
+              'description', description,
+              'due_date', due_date,
+              'priority', priority,
+              'category', category,
+              'completed', completed
+            )
+          ) FILTER (WHERE completed = true) AS completed_tasks,
+          ARRAY_AGG(
+            json_build_object(
+              'id', id,
+              'title', title,
+              'description', description,
+              'due_date', due_date,
+              'priority', priority,
+              'category', category,
+              'completed', completed
+            )
+          ) FILTER (WHERE due_date >= NOW()) AS upcoming_tasks
         FROM tasks
         WHERE username = $1`,
       [email]
