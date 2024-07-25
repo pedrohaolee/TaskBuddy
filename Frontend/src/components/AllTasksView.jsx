@@ -1,11 +1,12 @@
-// AllTasksView.jsx
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../context/user";
 import styles from "./AllTasksView.module.css";
+import useFetch from "../hooks/useFetch";
 
 const AllTasksView = () => {
   const userCtx = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
+  const usingFetch = useFetch();
 
   useEffect(() => {
     fetchTasks();
@@ -13,13 +14,19 @@ const AllTasksView = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch("http://localhost:5002/api/admin/tasks", {
-        headers: {
-          Authorization: `Bearer ${userCtx.accessToken}`,
-        },
-      });
-      const data = await response.json();
-      setTasks(data);
+      //   const response = await fetch("http://localhost:5002/api/admin/tasks", {
+      //     headers: {
+      //       Authorization: `Bearer ${userCtx.accessToken}`,
+      //     },
+      //   });
+      //   const data = await response.json();
+      const response = await usingFetch(
+        "/api/admin/tasks",
+        "GET",
+        undefined,
+        userCtx.accessToken
+      );
+      setTasks(response);
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }
@@ -41,6 +48,7 @@ const AllTasksView = () => {
             },
           }
         );
+
         const result = await response.json();
         if (result.status === "success") {
           setTasks(tasks.filter((task) => task.id !== id));

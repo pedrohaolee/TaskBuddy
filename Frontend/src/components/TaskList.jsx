@@ -3,23 +3,30 @@ import UserContext from "../context/user";
 import Task from "./Task";
 import UpdateModal from "./UpdateModal";
 import styles from "./TaskList.module.css";
+import useFetch from "../hooks/useFetch";
 
 const TaskList = () => {
-  const { user } = useContext(UserContext);
+  const userCtx = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
   const [viewBy, setViewBy] = useState("priority");
   const [selectedTask, setSelectedTask] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const usingFetch = useFetch();
 
   useEffect(() => {
     fetchTasks();
-  }, [user]);
+  }, [userCtx.user]);
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch("http://localhost:5002/api/tasks");
-      const data = await response.json();
-      setTasks(data);
+      const response = await usingFetch(
+        "/api/tasks",
+        "POST",
+        { email: userCtx.user },
+        userCtx.accessToken
+      );
+      //   const data = await response.json();
+      setTasks(response);
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }

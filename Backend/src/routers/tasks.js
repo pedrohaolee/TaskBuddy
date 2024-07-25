@@ -26,7 +26,7 @@ const { getAllUsers } = require("../controllers/auth");
 // router.post("/books", auth, validateIdInBody, checkErrors, getBookById);
 // router.put("/books", authAdmin, validateAddBookData, checkErrors, addNewBook);
 router.put("/tasks", addNewTask);
-router.get("/tasks", getAllTasks);
+router.post("/tasks", getAllTasks);
 router.patch("/tasks/:id", updateTask);
 router.get("/users", getPremiumFreeUsers);
 router.patch("/users/:email/status", updateUserStatus);

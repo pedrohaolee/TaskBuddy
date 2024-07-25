@@ -91,13 +91,13 @@ const { pool } = require("../db/db");
 // };
 
 const getAllTasks = async (req, res) => {
-  //   const username = req.body.username;
+  const username = req.body.email;
 
   try {
-    // const result = await pool.query("SELECT * FROM tasks WHERE username = $1", [
-    //   username,
-    // ]);
-    const result = await pool.query("SELECT * FROM tasks");
+    const result = await pool.query("SELECT * FROM tasks WHERE username = $1", [
+      username,
+    ]);
+    // const result = await pool.query("SELECT * FROM tasks");
     res.json(result.rows);
   } catch (error) {
     console.error("Error fetching tasks:", error);

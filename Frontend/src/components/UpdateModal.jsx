@@ -65,9 +65,9 @@ const UpdateTaskModal = ({ task, closeModal }) => {
               onChange={(e) => setCategory(e.target.value)}
               required
             >
-              <option value="work">Work</option>
-              <option value="family">Family</option>
-              <option value="misc">Misc</option>
+              <option value="Work">Work</option>
+              <option value="Family">Family</option>
+              <option value="Misc">Misc</option>
             </select>
           </div>
           <div className={styles["form-control"]}>
@@ -77,9 +77,9 @@ const UpdateTaskModal = ({ task, closeModal }) => {
               onChange={(e) => setPriority(e.target.value)}
               required
             >
-              <option value="urgent">Urgent</option>
-              <option value="high">High</option>
-              <option value="low">Low</option>
+              <option value="Urgent">Urgent</option>
+              <option value="High">High</option>
+              <option value="Low">Low</option>
             </select>
           </div>
           <div className={styles["form-control"]}>
