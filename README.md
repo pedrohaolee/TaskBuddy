@@ -14,19 +14,27 @@ TaskBuddy is a full-stack, single-page application designed for managing persona
 
 ### Main Page
 
-![Main Page](path/to/main_screenshot.png)
+![Create Task](https://github.com/pedrohaolee/TaskBuddy/blob/main/TaskBarFree.png)
 
-### Calendar View
+![Task View By Priority](https://github.com/pedrohaolee/TaskBuddy/blob/main/TaskVIewByPriority.png)
 
-![Calendar View](path/to/calendar_screenshot.png)
+![Task View By Category](https://github.com/pedrohaolee/TaskBuddy/blob/main/TaskVIewByCategory.png)
+
+### Calendar For Premium Users
+
+![Calendar View](https://github.com/pedrohaolee/TaskBuddy/blob/main/CalendarView.png)
+
+### Dashboard For Premium Users
+
+![Dashboard View](https://github.com/pedrohaolee/TaskBuddy/blob/main/Dashboard.png)
 
 ### Admin Dashboard
 
-![Admin Dashboard](path/to/admin_dashboard_screenshot.png)
+![Admin Dashboard](https://github.com/pedrohaolee/TaskBuddy/blob/main/AdminView.png)
 
 ### All Tasks View
 
-![All Tasks View](path/to/all_tasks_view_screenshot.png)
+![All Tasks View](https://github.com/pedrohaolee/TaskBuddy/blob/main/AllTasksView.png)
 
 ## Technologies Used
 
@@ -46,16 +54,24 @@ TaskBuddy is a full-stack, single-page application designed for managing persona
 
 ### Installation
 
-1. The environment variables:
+The backend environment variables:
 
-   ```bash
-   DATABASE_URL=postgres://db_user:example@localhost:5432/taskbuddy
-   ACCESS_SECRET=your_access_secret
-   ```
+```bash
+ PORT
+ DATABASE
+ ACCESS_SECRET
+ REFRESH_SECRET
+```
+
+The frontend environment variables:
+
+```bash
+VITE_SERVER
+```
 
 ### Project Planning
 
-Find the public board used for the project's planning [here](http://your-planning-board-url).
+Find the public board used for the project's planning [here](https://trello.com/b/q6joVUSp/taskbuddy).
 
 ## Next Steps
 
@@ -91,11 +107,3 @@ Planned future enhancements (icebox items):
 ### Dashboard
 
 - **POST** `/api/dashboard` - Get dashboard tasks (pending, completed, upcoming)
-
-## Unit and Integration Tests
-
-To run the tests, use the following command:
-
-```
-
-```
