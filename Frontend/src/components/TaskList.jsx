@@ -87,7 +87,7 @@ const TaskList = () => {
               key={task.id}
               task={task}
               onDetail={handleViewDetail}
-              onUpdate={handleUpdate}
+              handleUpdate={handleUpdate}
             />
           ))}
         </div>

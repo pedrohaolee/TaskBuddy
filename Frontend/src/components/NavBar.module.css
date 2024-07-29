@@ -9,12 +9,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  transform: translateX(-90%); /* Hide 90% of the navbar */
-  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  transform: translateX(-90%);
+  transition: transform 0.3s ease;
 }
 
 .navbar:hover {
-  transform: translateX(0); /* Show full navbar on hover */
+  transform: translateX(0);
 }
 
 .navbar nav {

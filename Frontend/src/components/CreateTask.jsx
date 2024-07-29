@@ -80,9 +80,9 @@ const CreateTask = () => {
             <option value="" disabled>
               Select category
             </option>
-            <option value="work">Work</option>
-            <option value="family">Family</option>
-            <option value="misc">Misc</option>
+            <option value="Work">Work</option>
+            <option value="Family">Family</option>
+            <option value="Misc">Misc</option>
           </select>
         </div>
         <div className={styles["form-control"]}>
@@ -95,9 +95,9 @@ const CreateTask = () => {
             <option value="" disabled>
               Select priority
             </option>
-            <option value="urgent">Urgent</option>
-            <option value="high">High</option>
-            <option value="low">Low</option>
+            <option value="Urgent">Urgent</option>
+            <option value="High">High</option>
+            <option value="Low">Low</option>
           </select>
         </div>
         <div className={styles["form-control"]}>

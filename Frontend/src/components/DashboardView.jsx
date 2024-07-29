@@ -1,4 +1,3 @@
-// DashboardView.jsx
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../context/user";
 import styles from "./DashboardView.module.css";

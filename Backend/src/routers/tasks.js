@@ -9,6 +9,7 @@ const {
   dashboardTasks,
   getAllTasksAdmin,
   deleteTaskAdmin,
+  updateTaskStatus,
 } = require("../controllers/tasks");
 
 const {
@@ -33,6 +34,7 @@ router.patch("/users/:email/status", updateUserStatus);
 router.post("/dashboard", dashboardTasks);
 router.get("/admin/tasks", getAllTasksAdmin);
 router.delete("/admin/tasks/:id", deleteTaskAdmin);
+router.patch("/tasks/:id/status", updateTaskStatus);
 // router.delete(
 //   "/books/:id",
 //   authAdmin,

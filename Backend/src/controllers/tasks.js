@@ -309,6 +309,35 @@ const deleteTaskAdmin = async (req, res) => {
   }
 };
 
+const updateTaskStatus = async (req, res) => {
+  const { id } = req.params;
+  const { completed } = req.body;
+
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    const result = await client.query(
+      "UPDATE tasks SET completed = $1, updated_at = NOW() WHERE id = $2 RETURNING *",
+      [completed, id]
+    );
+
+    if (result.rows.length === 0) {
+      await client.query("ROLLBACK");
+      return res.status(404).json({ status: "error", msg: "Task not found" });
+    }
+    await client.query("COMMIT");
+    res.json({ status: "success", task: result.rows[0] });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error("Error updating task status:", error);
+    res
+      .status(500)
+      .json({ status: "error", msg: "Failed to update task status" });
+  } finally {
+    client.release();
+  }
+};
+
 // const deleteOneBookById = async (req, res) => {
 //   try {
 //     await BooksModel.findByIdAndDelete(req.params.id);
@@ -347,4 +376,5 @@ module.exports = {
   dashboardTasks,
   getAllTasksAdmin,
   deleteTaskAdmin,
+  updateTaskStatus,
 };
