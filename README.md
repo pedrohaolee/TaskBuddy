@@ -6,11 +6,11 @@ TaskBuddy is a full-stack, single-page application designed for managing persona
 
 ### Login Page
 
-![Login Page](path/to/login_screenshot.png)
+![Login Page](https://github.com/pedrohaolee/TaskBuddy/blob/main/login_screenshot.png)
 
 ### Registration Page
 
-![Registration Page](path/to/registration_screenshot.png)
+![Registration Page](https://github.com/pedrohaolee/TaskBuddy/blob/main/registration_screenshot.png)
 
 ### Main Page
 
