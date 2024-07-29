@@ -39,17 +39,12 @@ const AllTasksView = () => {
       )
     ) {
       try {
-        const response = await fetch(
-          `http://localhost:5002/api/admin/tasks/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${userCtx.accessToken}`,
-            },
-          }
+        const result = await usingFetch(
+          `/api/admin/tasks/${id}`,
+          "DELETE",
+          undefined,
+          userCtx.accessToken
         );
-
-        const result = await response.json();
         if (result.status === "success") {
           setTasks(tasks.filter((task) => task.id !== id));
         } else {

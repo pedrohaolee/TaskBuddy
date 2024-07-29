@@ -15,9 +15,11 @@ const {
 const {
   validateIdInBody,
   validateIdInParam,
-  validateAddBookData,
-  validateUpdateBookData,
-} = require("../validators/books");
+  validateAddTaskData,
+  validateUpdateTaskData,
+  validateUpdateTaskStatus,
+} = require("../validators/tasks");
+
 const checkErrors = require("../validators/checkErrors");
 const { authAdmin, auth } = require("../middleware/auth");
 const { getAllUsers } = require("../controllers/auth");
@@ -26,15 +28,28 @@ const { getAllUsers } = require("../controllers/auth");
 // router.get("/books", auth, getAllBooks);
 // router.post("/books", auth, validateIdInBody, checkErrors, getBookById);
 // router.put("/books", authAdmin, validateAddBookData, checkErrors, addNewBook);
-router.put("/tasks", addNewTask);
-router.post("/tasks", getAllTasks);
-router.patch("/tasks/:id", updateTask);
-router.get("/users", getPremiumFreeUsers);
-router.patch("/users/:email/status", updateUserStatus);
-router.post("/dashboard", dashboardTasks);
-router.get("/admin/tasks", getAllTasksAdmin);
-router.delete("/admin/tasks/:id", deleteTaskAdmin);
-router.patch("/tasks/:id/status", updateTaskStatus);
+router.put("/tasks", auth, validateAddTaskData, checkErrors, addNewTask);
+router.post("/tasks", auth, getAllTasks);
+router.patch(
+  "/tasks/:id",
+  auth,
+  validateIdInParam,
+  validateUpdateTaskData,
+  checkErrors,
+  updateTask
+);
+router.get("/users", authAdmin, getPremiumFreeUsers);
+router.patch("/users/:email/status", authAdmin, updateUserStatus);
+router.post("/dashboard", auth, dashboardTasks);
+router.get("/admin/tasks", authAdmin, getAllTasksAdmin);
+router.delete(
+  "/admin/tasks/:id",
+  authAdmin,
+  validateIdInParam,
+  checkErrors,
+  deleteTaskAdmin
+);
+router.patch("/tasks/:id/status", auth, updateTaskStatus);
 // router.delete(
 //   "/books/:id",
 //   authAdmin,

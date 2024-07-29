@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Modal.module.css";
+import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const UpdateTaskModal = ({ task, closeModal }) => {
   const [title, setTitle] = useState(task.title);
@@ -7,6 +9,8 @@ const UpdateTaskModal = ({ task, closeModal }) => {
   const [priority, setPriority] = useState(task.priority);
   const [description, setDescription] = useState(task.description);
   const [dueDate, setDueDate] = useState(task.due_date);
+  const usingFetch = useFetch();
+  const userCtx = useContext(UserContext);
 
   useEffect(() => {
     const formattedDate = new Date(task.due_date).toISOString().split("T")[0];
@@ -23,22 +27,13 @@ const UpdateTaskModal = ({ task, closeModal }) => {
     };
 
     try {
-      const response = await fetch(
-        `http://localhost:5002/api/tasks/${task.id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedTask),
-        }
+      const data = await usingFetch(
+        `/api/tasks/${task.id}`,
+        "PATCH",
+        updatedTask,
+        userCtx.accessToken
       );
-
-      if (response.ok) {
-        closeModal();
-      } else {
-        console.error("Failed to update task");
-      }
+      closeModal();
     } catch (error) {
       console.error("Error updating task:", error);
     }

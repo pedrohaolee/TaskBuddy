@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import styles from "./CreateTask.module.css";
 import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const CreateTask = () => {
   const userCtx = useContext(UserContext);
@@ -12,6 +13,7 @@ const CreateTask = () => {
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const usingFetch = useFetch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,27 +33,22 @@ const CreateTask = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5002/api/tasks", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(taskData),
-      });
+      const errorData = await usingFetch(
+        "/api/tasks",
+        "PUT",
+        taskData,
+        userCtx.accessToken
+      );
 
-      if (response.ok) {
-        setSuccess("Task created successfully");
-        setTitle("");
-        setCategory("");
-        setPriority("");
-        setDescription("");
-        setDueDate("");
-        setCompleted(false);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.msg || "Failed to create task");
-      }
+      setSuccess("Task created successfully");
+      setTitle("");
+      setCategory("");
+      setPriority("");
+      setDescription("");
+      setDueDate("");
+      setCompleted(false);
     } catch (err) {
+      setError(errorData.msg || "Failed to create task");
       setError("Error connecting to the server");
     }
   };

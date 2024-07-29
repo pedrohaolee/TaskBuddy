@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./AdminView.module.css";
+import UserContext from "../context/user";
+import useFetch from "../hooks/useFetch";
 
 const AdminView = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const usingFetch = useFetch();
+  const userCtx = useContext(UserContext);
 
   useEffect(() => {
     fetchUsers();
@@ -11,8 +15,12 @@ const AdminView = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5002/api/users");
-      const data = await response.json();
+      const data = await usingFetch(
+        "/api/users",
+        "GET",
+        undefined,
+        userCtx.accessToken
+      );
       setUsers(data);
       setLoading(false);
     } catch (error) {
@@ -24,26 +32,18 @@ const AdminView = () => {
   const toggleUserStatus = async (email, currentStatus) => {
     const newStatus = !currentStatus;
     try {
-      const response = await fetch(
-        `http://localhost:5002/api/users/${email}/status`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status: newStatus }),
-        }
+      const data = await usingFetch(
+        `/api/users/${email}/status`,
+        "PATCH",
+        { status: newStatus },
+        userCtx.accessToken
       );
 
-      if (response.ok) {
-        setUsers(
-          users.map((user) =>
-            user.email === email ? { ...user, status: newStatus } : user
-          )
-        );
-      } else {
-        console.error("Failed to update user status");
-      }
+      setUsers(
+        users.map((user) =>
+          user.email === email ? { ...user, status: newStatus } : user
+        )
+      );
     } catch (error) {
       console.error("Error updating user status:", error);
     }

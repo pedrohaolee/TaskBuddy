@@ -34,9 +34,14 @@ const Task = ({ task, handleUpdate }) => {
       className={`${styles.taskItem} ${isCompleted ? styles.completed : ""}`}
     >
       <div className={styles.taskInfo}>
-        <span>{task.title}</span>
-        <span>{new Date(task.due_date).toLocaleDateString()}</span>
-        <span>{truncateDescription(task.description)}</span>
+        <span>{task.title}&emsp;</span>
+        <span>
+          {new Date(task.due_date).toLocaleDateString()}
+          &emsp;&emsp;
+        </span>
+        <span>
+          {truncateDescription(task.description)}&emsp;&emsp;&emsp;&emsp;
+        </span>
       </div>
       <div className={styles.taskActions}>
         <button onClick={handleToggleStatus}>
@@ -44,6 +49,7 @@ const Task = ({ task, handleUpdate }) => {
         </button>
         <button onClick={() => handleUpdate(task)}>Update</button>
       </div>
+      <br />
     </div>
   );
 };

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../context/user";
 import styles from "./DashboardView.module.css";
+import useFetch from "../hooks/useFetch";
 
 const DashboardView = () => {
   const userCtx = useContext(UserContext);
+  const usingFetch = useFetch();
   const [stats, setStats] = useState({});
 
   useEffect(() => {
@@ -12,15 +14,12 @@ const DashboardView = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch("http://localhost:5002/api/dashboard", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userCtx.accessToken}`,
-        },
-        body: JSON.stringify({ email: userCtx.user }),
-      });
-      const data = await response.json();
+      const data = await usingFetch(
+        "/api/dashboard",
+        "POST",
+        { email: userCtx.user },
+        userCtx.accessToken
+      );
       setStats(data);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
