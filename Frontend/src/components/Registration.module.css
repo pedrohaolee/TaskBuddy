@@ -1,7 +1,7 @@
 .signup-body {
   margin: 0;
   padding: 0;
-  background-image: url("../../public/registration.jpg");
+  background-image: url("../../registration.jpg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;

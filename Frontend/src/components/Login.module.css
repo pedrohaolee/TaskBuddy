@@ -1,7 +1,7 @@
 .login-body {
   margin: 0;
   padding: 0;
-  background-image: url("../../public/LoginBackground.png");
+  background-image: url("../../LoginBackground.png");
   background-size: cover;
   background-position: top;
   min-height: 100vh;
