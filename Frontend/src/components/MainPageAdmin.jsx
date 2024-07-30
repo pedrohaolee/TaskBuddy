@@ -2,11 +2,6 @@ import React, { Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import NotFound from "../pages/NotFound";
 import NavBarAdmin from "./NavBarAdmin";
-import Intro from "../pages/Intro";
-import CreateTask from "./CreateTask";
-import TaskList from "./TaskList";
-import CalendarView from "./CalendarView";
-import DashboardView from "./DashboardView";
 import AdminView from "./AdminView";
 import AllTasksView from "./AllTasksView";
 

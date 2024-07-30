@@ -25,7 +25,6 @@ const TaskList = () => {
         { email: userCtx.user },
         userCtx.accessToken
       );
-      //   const data = await response.json();
       setTasks(response);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -52,7 +51,6 @@ const TaskList = () => {
     const key = viewBy === "priority" ? task.priority : task.category;
     if (!acc[key]) acc[key] = [];
     acc[key].push(task);
-    // console.log(acc);
     return acc;
   }, {});
 

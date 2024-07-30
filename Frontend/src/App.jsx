@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import Display from "./components/Display";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserContext from "./context/user";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import MainPage from "./components/MainPage";
-import AdminView from "./components/AdminView";
 import MainPageAdmin from "./components/MainPageAdmin";
 
 const queryClient = new QueryClient();

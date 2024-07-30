@@ -4,7 +4,6 @@ import UserContext from "../context/user";
 import useFetch from "../hooks/useFetch";
 
 const CreateTask = () => {
-  const userCtx = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
@@ -14,6 +13,7 @@ const CreateTask = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const usingFetch = useFetch();
+  const userCtx = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

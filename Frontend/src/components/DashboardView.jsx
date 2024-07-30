@@ -4,9 +4,9 @@ import styles from "./DashboardView.module.css";
 import useFetch from "../hooks/useFetch";
 
 const DashboardView = () => {
-  const userCtx = useContext(UserContext);
-  const usingFetch = useFetch();
   const [stats, setStats] = useState({});
+  const usingFetch = useFetch();
+  const userCtx = useContext(UserContext);
 
   useEffect(() => {
     fetchDashboardData();

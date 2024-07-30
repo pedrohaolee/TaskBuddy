@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styles from "./NavBar.module.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import UserContext from "../context/user";
-import Login from "./Login";
 
 const NavBar = () => {
   const userCtx = useContext(UserContext);

@@ -14,12 +14,6 @@ const AllTasksView = () => {
 
   const fetchTasks = async () => {
     try {
-      //   const response = await fetch("http://localhost:5002/api/admin/tasks", {
-      //     headers: {
-      //       Authorization: `Bearer ${userCtx.accessToken}`,
-      //     },
-      //   });
-      //   const data = await response.json();
       const response = await usingFetch(
         "/api/admin/tasks",
         "GET",
@@ -35,7 +29,7 @@ const AllTasksView = () => {
   const handleDelete = async (id) => {
     if (
       window.confirm(
-        "TaskBuddy Alert: \n\n Are you sure you want to delete this task?"
+        "TaskBuddy Alert: \n Alert\n Aler\n Ale\n Al\n A\n A...\n Are you sure you want to delete this task?"
       )
     ) {
       try {

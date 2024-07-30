@@ -1,6 +1,6 @@
 const { pool } = require("../db/db");
 
-const createTaskTable = async () => {
+const Tasks = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS tasks (
       id SERIAL PRIMARY KEY,
@@ -24,4 +24,4 @@ const createTaskTable = async () => {
   }
 };
 
-module.exports = { createTaskTable };
+module.exports = { Tasks };

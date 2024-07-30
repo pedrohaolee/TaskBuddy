@@ -4,24 +4,21 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-// const books = require("./src/routers/books");
 const tasks = require("./src/routers/tasks");
 const roles = require("./src/routers/roles");
 const auth = require("./src/routers/auth");
-const { createTaskTable } = require("./src/models/Tasks");
-
+const { Tasks } = require("./src/models/Tasks");
 const { pool, connectDB } = require("./src/db/db");
-const { connect } = require("mongoose");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 10000,
   standardHeaders: true,
   legacyHeaders: false,
 });
 
 connectDB().then(() => {
-  createTaskTable();
+  Tasks();
 });
 
 const app = express();

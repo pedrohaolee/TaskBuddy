@@ -17,8 +17,6 @@ const Registration = (props) => {
     queryFn: async () => await usingFetch("/roles"),
   });
 
-  console.log(data);
-
   const { mutate } = useMutation({
     mutationFn: async () => {
       await usingFetch("/auth/register/", "PUT", { email, password, role });
@@ -111,7 +109,7 @@ const Registration = (props) => {
             onClick={mutate}
             disabled={!passwordsMatch}
           >
-            register
+            Register
           </button>
           <div className="col-md-4"></div>
         </div>
@@ -122,7 +120,7 @@ const Registration = (props) => {
             className={styles["signup-footer"]}
             onClick={() => props.setShowLogin(true)}
           >
-            go to login screen
+            Go to Login
           </button>
           <div className="col-md-4"></div>
         </div>

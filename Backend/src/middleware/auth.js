@@ -29,7 +29,6 @@ const authAdmin = (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
-      console.log(decoded);
       if (decoded.role === "admin") {
         req.decoded = decoded;
         next();

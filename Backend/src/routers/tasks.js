@@ -11,7 +11,6 @@ const {
   deleteTaskAdmin,
   updateTaskStatus,
 } = require("../controllers/tasks");
-
 const {
   validateIdInBody,
   validateIdInParam,
@@ -19,15 +18,9 @@ const {
   validateUpdateTaskData,
   validateUpdateTaskStatus,
 } = require("../validators/tasks");
-
 const checkErrors = require("../validators/checkErrors");
 const { authAdmin, auth } = require("../middleware/auth");
-const { getAllUsers } = require("../controllers/auth");
 
-// router.get("/books/seed", authAdmin, seedBooks);
-// router.get("/books", auth, getAllBooks);
-// router.post("/books", auth, validateIdInBody, checkErrors, getBookById);
-// router.put("/books", authAdmin, validateAddBookData, checkErrors, addNewBook);
 router.put("/tasks", auth, validateAddTaskData, checkErrors, addNewTask);
 router.post("/tasks", auth, getAllTasks);
 router.patch(
@@ -50,20 +43,5 @@ router.delete(
   deleteTaskAdmin
 );
 router.patch("/tasks/:id/status", auth, updateTaskStatus);
-// router.delete(
-//   "/books/:id",
-//   authAdmin,
-//   validateIdInParam,
-//   checkErrors,
-//   deleteOneBookById
-// );npm
-// router.patch(
-//   "/books/:id",
-//   authAdmin,
-//   validateIdInParam,
-//   validateUpdateBookData,
-//   checkErrors,
-//   updateOneBook
-// );
 
 module.exports = router;

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'first_app',
     'accounts',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'tasks',
     'restful_apis',
     'restful_apis_with_jwt',
     'corsheaders',

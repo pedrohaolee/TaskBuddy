@@ -6,11 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import styles from "./Login.module.css";
 
 const Login = (props) => {
-  const usingFetch = useFetch();
-  const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { setUser } = useContext(UserContext);
+  const usingFetch = useFetch();
+  const userCtx = useContext(UserContext);
 
   const { isError, error, data, refetch } = useQuery({
     queryKey: ["login"],
@@ -32,14 +31,6 @@ const Login = (props) => {
       userCtx.setUser(email);
     }
   }, [data]);
-
-  //   const handleLogin = async () => {
-  //     const res = await usingFetch("/auth/login", "POST", { email, password });
-
-  //     userCtx.setAccessToken(res.access);
-  //     const decoded = jwtDecode(res.access);
-  //     userCtx.setRole(decoded.role);
-  //   };
 
   return (
     <div className={styles["login-body"]}>
