@@ -21,6 +21,7 @@ const {
 const checkErrors = require("../validators/checkErrors");
 const { authAdmin, auth } = require("../middleware/auth");
 
+// For regular users
 router.put("/tasks", auth, validateAddTaskData, checkErrors, addNewTask);
 router.post("/tasks", auth, getAllTasks);
 router.patch(
@@ -31,9 +32,12 @@ router.patch(
   checkErrors,
   updateTask
 );
+router.patch("/tasks/:id/status", auth, updateTaskStatus);
+router.post("/dashboard", auth, dashboardTasks);
+
+// For admin
 router.get("/users", authAdmin, getPremiumFreeUsers);
 router.patch("/users/:email/status", authAdmin, updateUserStatus);
-router.post("/dashboard", auth, dashboardTasks);
 router.get("/admin/tasks", authAdmin, getAllTasksAdmin);
 router.delete(
   "/admin/tasks/:id",
@@ -42,6 +46,5 @@ router.delete(
   checkErrors,
   deleteTaskAdmin
 );
-router.patch("/tasks/:id/status", auth, updateTaskStatus);
 
 module.exports = router;

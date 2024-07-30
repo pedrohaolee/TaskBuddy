@@ -102,8 +102,9 @@ Planned future enhancements (icebox items):
 
 ### Authentication
 
-- **POST** `/api/auth/login` - Login a user
-- **POST** `/api/auth/register` - Register a new user
+- **GET** `/auth/users` - Get all user types
+- **POST** `/auth/login` - Login a user
+- **PUT** `/auth/register` - Register a new user
 
 ### Tasks
 
@@ -111,6 +112,7 @@ Planned future enhancements (icebox items):
 - **POST** `/api/tasks` - Get all tasks for a user
 - **PATCH** `/api/tasks/:id` - Update a task
 - **PATCH** `/api/tasks/:id/status` - Update task status
+- **POST** `/api/dashboard` - Get dashboard tasks (pending, completed, upcoming)
 
 ### Admin
 
@@ -118,7 +120,3 @@ Planned future enhancements (icebox items):
 - **PATCH** `/api/users/:email/status` - Update user status
 - **GET** `/api/admin/tasks` - Get all tasks for admin
 - **DELETE** `/api/admin/tasks/:id` - Delete a task
-
-### Dashboard
-
-- **POST** `/api/dashboard` - Get dashboard tasks (pending, completed, upcoming)
