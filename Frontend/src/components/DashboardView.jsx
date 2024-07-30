@@ -42,15 +42,15 @@ const DashboardView = () => {
   return (
     <div className={styles.dashboard}>
       <h2>Dashboard</h2>
-      <div className={styles.stat}>
+      <div className={`${styles.stat} ${styles.pending}`}>
         <h3>Pending Tasks ({stats.pending_tasks_count})</h3>
         <ul>{stats.pending_tasks && renderTasks(stats.pending_tasks)}</ul>
       </div>
-      <div className={styles.stat}>
+      <div className={`${styles.stat} ${styles.completed}`}>
         <h3>Completed Tasks ({stats.completed_tasks_count})</h3>
         <ul>{stats.completed_tasks && renderTasks(stats.completed_tasks)}</ul>
       </div>
-      <div className={styles.stat}>
+      <div className={`${styles.stat} ${styles.upcoming}`}>
         <h3>Upcoming Tasks ({stats.upcoming_tasks_count})</h3>
         <ul>{stats.upcoming_tasks && renderTasks(stats.upcoming_tasks)}</ul>
       </div>

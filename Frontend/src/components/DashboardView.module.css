@@ -18,3 +18,15 @@
   font-size: 1.5em;
   margin: 0;
 }
+
+.pending {
+  background-color: #f5e1b4;
+}
+
+.completed {
+  background-color: #d5f7ba;
+}
+
+.upcoming {
+  background-color: #c1dff7;
+}
