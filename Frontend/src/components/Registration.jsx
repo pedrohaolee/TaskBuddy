@@ -11,6 +11,9 @@ const Registration = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [role, setRole] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   const { isSuccess, isError, error, isFetching, data } = useQuery({
     queryKey: ["roles"],
@@ -34,6 +37,22 @@ const Registration = (props) => {
     setPasswordsMatch(e.target.value === password);
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    const emailRegex = /\S+@\S+\.\S+/;
+    setEmailError(
+      emailRegex.test(e.target.value) ? "" : "Invalid email address"
+    );
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <div className={styles["signup-body"]}>
       <br />
@@ -44,34 +63,51 @@ const Registration = (props) => {
           placeholder="email"
           type="text"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        ></input>
+          onChange={handleEmailChange}
+        />
+        {emailError && <p className={styles["error-message"]}>{emailError}</p>}
         <div className="col-md-4"></div>
       </div>
 
       <div className={styles["signup-container"]}>
         <div className={styles["form-control"]}></div>
-        <input
-          className="col-md-4"
-          placeholder="password"
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        ></input>
+        <div style={{ position: "relative" }}>
+          <input
+            className="col-md-4"
+            placeholder="password"
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <button
+            type="button"
+            onClick={toggleShowPassword}
+            className={styles["toggle-password-button"]}
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
         <div className="col-md-4"></div>
       </div>
 
       <div className={styles["signup-container"]}>
         <div className={styles["form-control"]}></div>
-        <input
-          className="col-md-4"
-          placeholder="confirm password"
-          type="password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        ></input>
+        <div style={{ position: "relative" }}>
+          <input
+            className="col-md-4"
+            placeholder="confirm password"
+            type={showConfirmPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          <button
+            type="button"
+            onClick={toggleShowConfirmPassword}
+            className={styles["toggle-password-button"]}
+          >
+            {showConfirmPassword ? "Hide" : "Show"}
+          </button>
+        </div>
         <div className="col-md-4"></div>
       </div>
 
@@ -107,7 +143,7 @@ const Registration = (props) => {
           <button
             className={styles["register-button"]}
             onClick={mutate}
-            disabled={!passwordsMatch}
+            disabled={!passwordsMatch || emailError}
           >
             Register
           </button>

@@ -32,7 +32,13 @@ router.patch(
   checkErrors,
   updateTask
 );
-router.patch("/tasks/:id/status", auth, updateTaskStatus);
+router.patch(
+  "/tasks/:id/status",
+  auth,
+  validateUpdateTaskStatus,
+  checkErrors,
+  updateTaskStatus
+);
 router.post("/dashboard", auth, dashboardTasks);
 
 // For admin

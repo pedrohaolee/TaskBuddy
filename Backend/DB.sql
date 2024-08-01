@@ -1,11 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  hash VARCHAR(255) NOT NULL,
-  role VARCHAR(50) DEFAULT 'user',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
+DROP TABLE IF EXISTS roles;
 
 CREATE TABLE IF NOT EXISTS roles (
   id SERIAL PRIMARY KEY,
@@ -13,9 +6,7 @@ CREATE TABLE IF NOT EXISTS roles (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 DROP TABLE IF EXISTS users;
-
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -25,8 +16,6 @@ CREATE TABLE users (
   status BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-
 
 INSERT INTO tasks (title, description, priority, category, due_date, username, completed, updated_at)
 VALUES 
@@ -40,7 +29,6 @@ VALUES
 ('Prepare Holiday Cards', 'Design and write holiday cards for family and friends. Make sure to include a personal message in each card and send them out in time for the holidays.', 'High', 'Family', '2024-08-08', 'premium@example.com', false, CURRENT_TIMESTAMP),
 ('Renew Driver’s License', 'Check the expiration date of your driver’s license and gather the necessary documents. Visit the local DMV to renew your license before it expires.', 'Low', 'Misc', '2024-08-09', 'premium@example.com', true, CURRENT_TIMESTAMP),
 ('Annual Performance Review', 'Prepare the performance review documentation for your team. Schedule one-on-one meetings with each team member to discuss their performance and set goals for the next year.', 'Urgent', 'Work', '2024-08-10', 'premium@example.com', false, CURRENT_TIMESTAMP);
-
 
 INSERT INTO tasks (title, description, priority, category, due_date, username, completed, updated_at)
 VALUES 
